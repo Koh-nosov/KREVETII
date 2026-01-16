@@ -1075,52 +1075,61 @@
             let loading = false;
             let lastScrollTime = 0;
             
-            window.addEventListener('scroll', () => {
+            let lastTopLoadTime = 0; // таймстемп последней генерации сверху
+			const topLoadCooldown = 800; // мс между генерациями сверху
+			const maxTopShirmps = 100; // максимум креветок сверху
+
+			window.addEventListener('scroll', () => {
 				userHasScrolled = true;
-                const now = Date.now();
-                if (now - lastScrollTime < 100) return; // Троттлинг
-                lastScrollTime = now;
-                
-                const scrollPosition = window.innerHeight + window.pageYOffset;
-                const pageHeight = document.documentElement.scrollHeight;
-                const distanceToBottom = pageHeight - scrollPosition;
-                
-                // Подгружаем новые креветки когда до низа 500px
-                if (distanceToBottom < 500 && !loading) {
-                    loading = true;
-                    
-                    // Показываем индикатор на быструю генерацию
-                    setTimeout(() => {
-                        generateShrimpBatch(25);
-                        loading = false;
-                    }, 300);
-                }
-                
-                // Также подгружаем если мы в самом верху (обратный скролл)
-                if (window.pageYOffset < 100 && !loading && userHasScrolled) {
-                    loading = true;
-                    setTimeout(() => {
-                        // Добавляем сверху
-                        const fragment = document.createDocumentFragment();
-                        for (let i = 0; i < 15; i++) {
-                            const rarity = getRandomRarity();
-                            const card = createShrimpCard(rarity);
-                            if (card) {
-                                fragment.appendChild(card);
-                                addShrimpInteractivity(card, rarity);
-                                totalShrimpsGenerated++;
-                            }
-                        }
-                        const prevHeight = grid.scrollHeight;
+				const now = Date.now();
+				if (now - lastScrollTime < 100) return;
+				lastScrollTime = now;
+
+				const scrollPosition = window.innerHeight + window.pageYOffset;
+				const pageHeight = document.documentElement.scrollHeight;
+				const distanceToBottom = pageHeight - scrollPosition;
+
+				// вниз
+				if (distanceToBottom < 500 && !loading) {
+					loading = true;
+					setTimeout(() => {
+						generateShrimpBatch(25);
+						loading = false;
+					}, 300);
+				}
+
+				// вверх
+				if (
+					window.pageYOffset < 100 &&
+					!loading &&
+					userHasScrolled &&
+					now - lastTopLoadTime > topLoadCooldown &&
+					totalShrimpsGenerated < maxTopShirmps
+				) {
+					loading = true;
+					lastTopLoadTime = now;
+
+					setTimeout(() => {
+						const fragment = document.createDocumentFragment();
+						for (let i = 0; i < 15; i++) {
+							const rarity = getRandomRarity();
+							const card = createShrimpCard(rarity);
+							if (card) {
+								fragment.appendChild(card);
+								addShrimpInteractivity(card, rarity);
+								totalShrimpsGenerated++;
+							}
+						}
+						const prevHeight = grid.scrollHeight;
 						grid.prepend(fragment);
 						const newHeight = grid.scrollHeight;
 						window.scrollBy(0, newHeight - prevHeight);
 						loading = false;
-                    }, 300);
-                }
-            });
+					}, 300);
+				}
+			});
         }
-
+		
         // Управление звуком
         musicBtn.addEventListener('click', () => {
             musicEnabled = !musicEnabled;
