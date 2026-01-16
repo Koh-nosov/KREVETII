@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KREVETII.RU — Креветочная Вселенная</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ФИКСИРУЕМ МИГАНИЕ ЗАГОЛОВКА */
+        @keyframes titleGlow {
+            0%, 100% { 
+                text-shadow: 
+                    0 0 20px #ff1493,
+                    0 0 40px #ff69b4,
+                    0 0 60px #ff8fa3;
+            }
+            50% { 
+                text-shadow: 
+                    0 0 25px #ff1493,
+                    0 0 45px #ff69b4,
+                    0 0 65px #ff8fa3;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-8px) rotate(1deg); }
+            66% { transform: translateY(4px) rotate(-1deg); }
+        }
+
+        /* ЛЕГЕНДАРНЫЙ ПОЛИХРОМ */
+        @keyframes legendaryRainbow {
+            0% { 
+                filter: hue-rotate(0deg) brightness(1.5);
+                box-shadow: 
+                    0 0 50px #ff0000,
+                    inset 0 0 40px #ff9900,
+                    0 0 80px #ffff00;
+            }
+            25% { 
+                filter: hue-rotate(90deg) brightness(1.7);
+                box-shadow: 
+                    0 0 60px #00ff00,
+                    inset 0 0 50px #00ffff,
+                    0 0 90px #0000ff;
+            }
+            50% { 
+                filter: hue-rotate(180deg) brightness(1.9);
+                box-shadow: 
+                    0 0 70px #4b0082,
+                    inset 0 0 60px #ee82ee,
+                    0 0 100px #ff00ff;
+            }
+            75% { 
+                filter: hue-rotate(270deg) brightness(1.7);
+                box-shadow: 
+                    0 0 60px #ff4500,
+                    inset 0 0 50px #ffd700,
+                    0 0 90px #daa520;
+            }
+            100% { 
+                filter: hue-rotate(360deg) brightness(1.5);
+                box-shadow: 
+                    0 0 50px #ff0000,
+                    inset 0 0 40px #ff9900,
+                    0 0 80px #ffff00;
+            }
+        }
+
+        @keyframes mythicPulse {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% { 
+                transform: scale(1.05);
+                opacity: 0.9;
+            }
+        }
+
+        @keyframes rareShimmer {
+            0%, 100% { 
+                background-position: 0% 50%;
+            }
+            50% { 
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes monochromeScan {
+            0% { 
+                background-position: 0% 0%;
+            }
+            100% { 
+                background-position: 100% 100%;
+            }
+        }
+
+        @keyframes crystalSparkle {
+            0%, 100% { 
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.85;
+                filter: drop-shadow(0 0 8px white);
+            }
+        }
+
+        /* АНИМАЦИЯ СТРУКТУР */
+        @keyframes structureBuild {
+            0% { transform: scale(0.3); opacity: 0; }
+            70% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes pixelDance {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        @keyframes blockRotate {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+
+        body {
+            background: radial-gradient(circle at center, 
+                #ffb6c1 0%, 
+                #ff8fa3 30%, 
+                #ff69b4 70%,
+                #ff1493 100%);
+            font-family: 'Courier New', monospace;
+            min-height: 100vh;
+            overflow-x: hidden;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text y="28" font-size="30">🦐</text></svg>'), auto;
+        }
+
+        /* Креветочный фон */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.08) 1px, transparent 1px),
+                radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 60px 60px, 80px 80px;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.2;
+        }
+		
+        /* ФИКС ЗАГОЛОВКА - без мигания */
+        .header {
+            text-align: center;
+            padding: 25px 20px;
+            background: linear-gradient(135deg, rgba(255, 20, 147, 0.9), rgba(255, 105, 180, 0.9));
+            color: white;
+            border-bottom: 4px solid white;
+            position: relative;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 40px rgba(255, 20, 147, 0.3);
+            animation: titleGlow 4s infinite ease-in-out; /* Мягче и медленнее */
+        }
+
+        .header h1 {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 0 #ff1493;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .control-btn {
+            background: linear-gradient(145deg, #ff69b4, #ff1493);
+            border: none;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            border: 2px solid white;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+            padding: 30px;
+            max-width: 1800px;
+            margin: 0 auto;
+            min-height: calc(100vh - 200px);
+        }
+
+        /* Базовый стиль креветки */
+        .shrimp-card {
+            background: linear-gradient(135deg, #ffc0cb, #ffb2c1);
+            border-radius: 20px;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text y="28" font-size="30">🦐</text></svg>'), auto !important; /* ФИКС КУРСОРА */
+            user-select: none;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                8px 8px 0px rgba(255, 105, 180, 0.4),
+                inset 4px 4px 15px rgba(255, 255, 255, 0.6);
+            animation: float 6s infinite ease-in-out;
+        }
+
+        /* ОБЫЧНЫЕ */
+        .shrimp-card.common {
+            /* Базовый стиль */
+        }
+
+        /* РЕДКИЕ (жёлтые) */
+        .shrimp-card.rare {
+            background: linear-gradient(135deg, #fffacd, #fff176, #ffeb3b);
+            background-size: 200% 200%;
+            border: 3px solid #ffd700;
+            font-size: 6.5rem;
+            animation: rareShimmer 3s infinite ease-in-out, float 5s infinite ease-in-out;
+            box-shadow: 
+                12px 12px 0px rgba(255, 215, 0, 0.4),
+                inset 0 0 25px rgba(255, 255, 255, 0.7),
+                0 0 35px rgba(255, 215, 0, 0.5);
+        }
+
+        /* СУПЕР РЕДКИЕ (кристальные) */
+        .shrimp-card.super-rare {
+            background: linear-gradient(135deg, #e0f7fa, #b2ebf2, #80deea);
+            border: 4px solid #00bcd4;
+            font-size: 7rem;
+            animation: crystalSparkle 4s infinite ease-in-out, float 4s infinite ease-in-out;
+            box-shadow: 
+                15px 15px 0px rgba(0, 188, 212, 0.3),
+                inset 0 0 35px rgba(255, 255, 255, 0.8),
+                0 0 50px rgba(0, 188, 212, 0.6);
+        }
+
+        /* МИФИЧЕСКИЕ (фиолетовые) */
+        .shrimp-card.mythic {
+            background: linear-gradient(135deg, #e1bee7, #ce93d8, #ba68c8);
+            border: 5px solid #9c27b0;
+            font-size: 7.5rem;
+            animation: mythicPulse 3s infinite ease-in-out, float 3s infinite ease-in-out;
+            box-shadow: 
+                18px 18px 0px rgba(156, 39, 176, 0.3),
+                inset 0 0 40px rgba(255, 255, 255, 0.6),
+                0 0 60px rgba(156, 39, 176, 0.7);
+        }
+
+        /* ЛЕГЕНДАРНЫЕ (полихром) */
+        .shrimp-card.legendary {
+            background: linear-gradient(135deg, 
+                #ff0000, #ff9900, #ffff00, #00ff00, 
+                #00ffff, #0000ff, #9900ff, #ff00ff);
+            background-size: 400% 400%;
+            border: 6px solid;
+            border-image: linear-gradient(45deg, 
+                #ff0000, #ff9900, #ffff00, #00ff00, 
+                #00ffff, #0000ff, #9900ff, #ff00ff) 1;
+            font-size: 8.5rem;
+            animation: legendaryRainbow 5s infinite linear, float 2s infinite ease-in-out;
+            box-shadow: 
+                22px 22px 0px rgba(0,0,0,0.15),
+                inset 0 0 70px rgba(255, 255, 255, 0.9),
+                0 0 120px rgba(255, 255, 255, 0.8);
+        }
+
+        .shrimp-card.legendary::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            background: inherit;
+            background-size: 400% 400%;
+            border-radius: 28px;
+            z-index: -1;
+            filter: blur(15px);
+            opacity: 0.6;
+            animation: legendaryRainbow 5s infinite linear reverse;
+        }
+
+        /* МОНОХРОМНЫЕ */
+        .shrimp-card.monochrome {
+            background: linear-gradient(135deg, 
+                #000000, #333333, #666666, #999999, 
+                #cccccc, #ffffff, #cccccc, #999999);
+            background-size: 400% 400%;
+            border: 3px solid #000000;
+            font-size: 6.5rem;
+            animation: monochromeScan 10s infinite linear alternate, float 5s infinite ease-in-out;
+            filter: contrast(1.3);
+        }
+
+        /* ПИКСЕЛЬНЫЕ СТРУКТУРЫ */
+        .shrimp-card.pixel-structure {
+            background: #ffc0cb;
+            font-size: 3.5rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 4px;
+            padding: 12px;
+            animation: structureBuild 0.8s ease-out, float 6s infinite ease-in-out;
+            box-shadow: 
+                10px 10px 0px rgba(255, 105, 180, 0.4),
+                inset 0 0 15px rgba(255, 255, 255, 0.5);
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text y="28" font-size="30">🔨</text></svg>'), auto !important; /* Курсор-молоток для структур */
+        }
+
+        .shrimp-card.pixel-structure .pixel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Сердце */
+        .shrimp-card.heart-pattern {
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+        }
+        .shrimp-card.heart-pattern .pixel:nth-child(2),
+        .shrimp-card.heart-pattern .pixel:nth-child(4),
+        .shrimp-card.heart-pattern .pixel:nth-child(5),
+        .shrimp-card.heart-pattern .pixel:nth-child(6),
+        .shrimp-card.heart-pattern .pixel:nth-child(8) {
+            color: white;
+            text-shadow: 0 0 4px rgba(0,0,0,0.3);
+        }
+
+        /* Алмаз */
+        .shrimp-card.diamond-pattern {
+            background: linear-gradient(135deg, #b2ebf2, #00bcd4);
+        }
+        .shrimp-card.diamond-pattern .pixel:nth-child(2),
+        .shrimp-card.diamond-pattern .pixel:nth-child(4),
+        .shrimp-card.diamond-pattern .pixel:nth-child(6),
+        .shrimp-card.diamond-pattern .pixel:nth-child(8) {
+            color: white;
+            animation: crystalSparkle 3s infinite ease-in-out;
+        }
+
+        /* СТРОЕНИЯ */
+        .shrimp-card.building {
+            background: linear-gradient(135deg, #8b4513, #a0522d, #d2691e);
+            font-size: 2.5rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 3px;
+            padding: 8px;
+            animation: structureBuild 1s ease-out, float 8s infinite ease-in-out;
+            box-shadow: 
+                15px 15px 0px rgba(139, 69, 19, 0.4),
+                inset 0 0 25px rgba(255, 255, 255, 0.3);
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><text y="28" font-size="30">🏗️</text></svg>'), auto !important; /* Курсор-краны */
+        }
+
+        .shrimp-card.building .block {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Замок */
+        .shrimp-card.castle {
+            background: linear-gradient(135deg, #708090, #778899, #2f4f4f);
+        }
+        .shrimp-card.castle .block {
+            color: #d4af37;
+            text-shadow: 1px 1px 1px black;
+        }
+
+        /* Эффект при наведении */
+        .shrimp-card:hover {
+            transform: scale(1.06);
+            animation-play-state: paused;
+        }
+
+        .shrimp-card.legendary:hover {
+            transform: scale(1.15) rotate(3deg);
+            filter: hue-rotate(90deg) brightness(1.8);
+            box-shadow: 
+                30px 30px 0px rgba(0,0,0,0.2),
+                inset 0 0 80px rgba(255, 255, 255, 1),
+                0 0 150px rgba(255, 255, 255, 1);
+        }
+
+        /* Особые эффекты для структур при наведении */
+        .shrimp-card.pixel-structure:hover .pixel {
+            animation: pixelDance 0.5s ease-in-out;
+            animation-delay: calc(var(--i) * 0.1s);
+        }
+
+        .shrimp-card.building:hover .block {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Индикатор звука для легендарных */
+        .sound-indicator {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            font-size: 1.5rem;
+            color: gold;
+            text-shadow: 0 0 8px black;
+            animation: float 1.5s infinite ease-in-out;
+            z-index: 11;
+        }
+
+        /* Футер - фиксируем чтобы был виден */
+        .footer {
+            text-align: center;
+            padding: 25px 20px;
+            color: white;
+            font-size: 0.95rem;
+            background: linear-gradient(135deg, rgba(255, 20, 147, 0.85), rgba(255, 105, 180, 0.85));
+            border-top: 4px solid white;
+            backdrop-filter: blur(8px);
+            position: relative;
+            z-index: 100;
+            margin-top: 40px;
+            box-shadow: 0 -5px 25px rgba(255, 20, 147, 0.4);
+        }
+
+        .footer p {
+            margin: 8px 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+
+        .footer em {
+            font-style: normal;
+            color: #fffacd;
+            text-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Сообщение о нахождении легендарной */
+        .legendary-found {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            z-index: 10000;
+            border: 4px solid gold;
+            box-shadow: 0 0 80px gold;
+            animation: legendaryRainbow 2s infinite;
+            display: none;
+            max-width: 75%;
+        }
+
+        .legendary-found.show {
+            display: block;
+            animation: structureBuild 0.6s ease-out forwards, legendaryRainbow 2s infinite 0.6s;
+        }
+
+        .legendary-found h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: gold;
+            animation: titleGlow 2s infinite;
+        }
+
+        /* Индикатор загрузки */
+        .loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 20, 147, 0.9);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            z-index: 9999;
+            border: 3px solid white;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка -->
+    <div class="header">
+        <h1>🦐 KREVETII.RU 🦐</h1>
+        <p>Вселенная креветок. Найдите легендарную!</p>
+		<p>Бесконечная библиотека креветочных сущностей. Листай вниз. Обрети покой.</p>
+    </div>
+
+    <!-- Контейнер с креветками -->
+    <div class="container" id="shrimp-grid">
+        <!-- Креветки генерируются здесь -->
+    </div>
+
+    <!-- Футер -->
+    <div class="footer">
+        <p><em>Проект вдохновлён диалогом с LLM 0.5B, которая хотела помочиться с задачей, но дала нам мир.</em></p>
+        <p>Легендарные креветки появляются раз в 500 кликов. Пиксельные строения — раз в 1000.</p>
+        <p style="font-size: 0.85rem; opacity: 0.9; margin-top: 12px;">
+            Кликни по строению 3 раза, чтобы увидеть секрет!
+        </p>
+    </div>
+
+    <!-- Сообщение о нахождении легендарной -->
+    <div class="legendary-found" id="legendaryFound">
+        <h2>🎉 ЛЕГЕНДАРНАЯ КРЕВЕТКА НАЙДЕНА! 🎉</h2>
+        <p style="font-size: 1.3rem;">Вы нашли невероятно редкую полихромную креветку!</p>
+        <p style="font-size: 1.1rem; margin-top: 12px;">Поздравляем, вы один из немногих!</p>
+        <button onclick="document.getElementById('legendaryFound').classList.remove('show')" 
+                style="margin-top: 15px; padding: 8px 25px; font-size: 1.1rem; background: gold; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">
+            ПРОДОЛЖИТЬ ПОИСКИ
+        </button>
+    </div>
+
+    <!-- Панель управления -->
+    <div class="controls">
+        <button class="control-btn" id="musicBtn" title="Фоновая музыка">🎵</button>
+        <button class="control-btn" id="soundBtn" title="Звуки креветок">🔊</button>
+        <button class="control-btn" id="scrollBtn" title="Режим скролла">🔄</button>
+    </div>
+
+    <!-- Индикатор загрузки -->
+    <div class="loading" id="loadingIndicator">
+        ⏳ Генерируем креветок...
+    </div>
+
+    <!-- Аудио -->
+    <audio id="shrimpSound" preload="auto">
+        <source src="shrimp.wav" type="audio/wav">
+    </audio>
+    
+    <audio id="legendarySound" preload="auto">
+        <source src="legendary.wav" type="audio/wav">
+    </audio>
+    
+    <audio id="structureSound" preload="auto">
+        <source src="structure.wav" type="audio/wav">
+    </audio>
+    
+    <audio id="backgroundMusic" loop preload="auto">
+        <source src="background.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Элементы
+        const grid = document.getElementById('shrimp-grid');
+        const shrimpSound = document.getElementById('shrimpSound');
+        const legendarySound = document.getElementById('legendarySound');
+        const structureSound = document.getElementById('structureSound');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        const soundBtn = document.getElementById('soundBtn');
+        const scrollBtn = document.getElementById('scrollBtn');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const legendaryFound = document.getElementById('legendaryFound');
+
+        // Настройки
+        let soundEnabled = true;
+        let musicEnabled = true;
+        let infiniteScroll = true; // ВОЗВРАЩАЕМ БЕСКОНЕЧНЫЙ СКРОЛЛ!
+        let clickCount = 0;
+        let legendaryFoundCount = 0;
+        let totalShrimpsGenerated = 0;
+        let isGenerating = false;
+        let structureClickCounts = new Map(); // Счётчик кликов по структурам
+
+        // ШАНСЫ ВЫПАДЕНИЯ (ещё реже!)
+        const rarityChances = {
+            common: 70,        // 70% - обычные
+            rare: 15,          // 15% - редкие
+            superRare: 5,      // 5% - супер редкие
+            mythic: 2,         // 2% - мифические
+            legendary: 0.1,    // 0.1% - легендарные (1 из 1000!)
+            monochrome: 3,     // 3% - монохромные
+            pixelStructure: 2, // 2% - пиксельные узоры
+            building: 3.9      // 3.9% - строения
+        };
+
+        // База данных креветок
+        const shrimpDB = {
+            common: ['🦐', '🍤'],
+            rare: ['🌟', '⭐'],
+            superRare: ['❄️', '💎'],
+            mythic: ['💫', '🌀'],
+            legendary: ['👑', '🔥', '🌈'],
+            monochrome: ['⚫', '⬜'],
+        };
+
+        // Пиксельные узоры
+        const pixelPatterns = [
+            {
+                name: 'heart',
+                emoji: '❤️',
+                pattern: [' ', '🦐', ' ', '🦐', '🦐', '🦐', ' ', '🦐', ' '],
+                color: '#ff1493'
+            },
+            {
+                name: 'diamond',
+                emoji: '💎',
+                pattern: [' ', '🦐', ' ', '🦐', ' ', '🦐', ' ', '🦐', ' '],
+                color: '#00bcd4'
+            },
+            {
+                name: 'star',
+                emoji: '⭐',
+                pattern: ['🦐', ' ', '🦐', ' ', '🦐', ' ', '🦐', ' ', '🦐'],
+                color: '#ffd700'
+            }
+        ];
+
+        // Строения
+        const buildingPatterns = [
+            {
+                name: 'castle',
+                emoji: '🏰',
+                pattern: [
+                    '🏰', '🏰', '🏰', '🏰',
+                    '🏰', '🪟', '🪟', '🏰',
+                    '🏰', '🚪', '🪟', '🏰',
+                    '🏰', '🏰', '🏰', '🏰'
+                ],
+                color: '#708090'
+            },
+            {
+                name: 'tower',
+                emoji: '🗼',
+                pattern: [
+                    '🦐', '🦐', '🦐', '🦐',
+                    '🦐', '  ', '  ', '🦐',
+                    '🦐', '  ', '  ', '🦐',
+                    '🦐', '🦐', '🦐', '🦐'
+                ],
+                color: '#d2691e'
+            },
+            {
+                name: 'pyramid',
+                emoji: '🔺',
+                pattern: [
+                    '  ', '🦐', '🦐', '  ',
+                    '🦐', '🦐', '🦐', '🦐',
+                    '🦐', '🦐', '🦐', '🦐',
+                    '🦐', '🦐', '🦐', '🦐'
+                ],
+                color: '#daa520'
+            }
+        ];
+
+        // Инициализация звука
+        function initializeAudio() {
+            backgroundMusic.volume = 0.2;
+            shrimpSound.volume = 0.35;
+            legendarySound.volume = 0;
+            structureSound.volume = 0.4;
+            
+            if (musicEnabled) {
+                backgroundMusic.play().catch(e => {
+                    musicEnabled = false;
+                    musicBtn.textContent = '🔇';
+                });
+            }
+        }
+
+        // Получение случайной редкости
+        function getRandomRarity() {
+            const rand = Math.random() * 100;
+            let cumulative = 0;
+            
+            for (const [rarity, chance] of Object.entries(rarityChances)) {
+                cumulative += chance;
+                if (rand <= cumulative) {
+                    return rarity;
+                }
+            }
+            return 'common';
+        }
+
+        // Генерация партии креветок
+        function generateShrimpBatch(count = 40) {
+            if (isGenerating) return 0;
+            isGenerating = true;
+            
+            const fragment = document.createDocumentFragment();
+            let generated = 0;
+            
+            for (let i = 0; i < count; i++) {
+                const rarity = getRandomRarity();
+                const card = createShrimpCard(rarity);
+                if (card) {
+                    fragment.appendChild(card);
+                    addShrimpInteractivity(card, rarity);
+                    generated++;
+                    totalShrimpsGenerated++;
+                }
+            }
+            
+            grid.appendChild(fragment);
+            isGenerating = false;
+            return generated;
+        }
+
+        // Создание карточки креветки
+        function createShrimpCard(rarity) {
+            const card = document.createElement('div');
+            card.className = `shrimp-card ${rarity}`;
+            
+            if (rarity === 'pixelStructure') {
+                // Пиксельный узор
+                const pattern = pixelPatterns[Math.floor(Math.random() * pixelPatterns.length)];
+                card.classList.add(`pixel-structure`, `${pattern.name}-pattern`);
+                card.dataset.patternType = pattern.name;
+                card.dataset.clicks = 0;
+                
+                for (let i = 0; i < 9; i++) {
+                    const pixel = document.createElement('div');
+                    pixel.className = 'pixel';
+                    pixel.textContent = pattern.pattern[i] === ' ' ? ' ' : pattern.pattern[i];
+                    pixel.style.setProperty('--i', i);
+                    card.appendChild(pixel);
+                }
+                
+            } else if (rarity === 'building') {
+                // Строение
+                const building = buildingPatterns[Math.floor(Math.random() * buildingPatterns.length)];
+                card.classList.add(`building`, building.name);
+                card.dataset.buildingType = building.name;
+                card.dataset.clicks = 0;
+                
+                for (let i = 0; i < 16; i++) {
+                    const block = document.createElement('div');
+                    block.className = 'block';
+                    block.textContent = building.pattern[i];
+                    card.appendChild(block);
+                }
+                
+            } else {
+                // Обычная креветка
+                const rarityArray = shrimpDB[rarity];
+                const emoji = rarityArray[Math.floor(Math.random() * rarityArray.length)];
+                card.textContent = emoji;
+                
+                if (rarity === 'legendary') {
+                    const indicator = document.createElement('div');
+                    indicator.className = 'sound-indicator';
+                    indicator.textContent = '🔊';
+                    card.appendChild(indicator);
+                }
+            }
+            
+            // Случайная задержка анимации
+            card.style.animationDelay = `${Math.random() * 4}s`;
+            return card;
+        }
+
+        // Добавление интерактивности
+        function addShrimpInteractivity(card, rarity) {
+            let soundInterval = null;
+            let currentVolume = 0;
+            
+            // ОБЩИЙ КЛИК ПО КРЕВЕТКЕ
+            card.addEventListener('click', (e) => {
+                e.stopPropagation();
+                clickCount++;
+                
+                if (rarity === 'legendary') {
+                    // ЛЕГЕНДАРНАЯ КРЕВЕТКА
+                    if (soundEnabled) {
+                        shrimpSound.volume = 0.5;
+                        shrimpSound.currentTime = 0;
+                        shrimpSound.play();
+                    }
+                    
+                    // Показываем сообщение о находке (только первый раз)
+                    if (legendaryFoundCount === 0) {
+                        legendaryFoundCount++;
+                        legendaryFound.classList.add('show');
+                        setTimeout(() => {
+                            legendaryFound.classList.remove('show');
+                        }, 5000);
+                    }
+                    
+                    // Эффект при клике
+                    card.style.transform = 'scale(1.25) rotate(10deg)';
+                    setTimeout(() => {
+                        card.style.transform = 'scale(1.15) rotate(3deg)';
+                    }, 300);
+                    
+                } else if (rarity === 'pixelStructure' || rarity === 'building') {
+                    // ОСОБЫЕ ВЗАИМОДЕЙСТВИЯ СО СТРУКТУРАМИ
+                    handleStructureClick(card, rarity);
+                    
+                } else {
+                    // ОБЫЧНАЯ КРЕВЕТКА
+                    if (soundEnabled) {
+                        shrimpSound.volume = 0.25;
+                        shrimpSound.currentTime = 0;
+                        shrimpSound.play();
+                    }
+                    
+                    // Эффект при клике
+                    card.style.transform = 'scale(0.92)';
+                    setTimeout(() => {
+                        card.style.transform = '';
+                    }, 150);
+                }
+            });
+            
+            // ЗВУК ПРИ НАВЕДЕНИИ НА ЛЕГЕНДАРНУЮ
+            if (rarity === 'legendary') {
+                card.addEventListener('mouseenter', () => {
+                    if (!soundEnabled) return;
+                    
+                    currentVolume = 0;
+                    legendarySound.volume = 0;
+                    legendarySound.currentTime = 0;
+                    legendarySound.play();
+                    
+                    clearInterval(soundInterval);
+                    soundInterval = setInterval(() => {
+                        if (currentVolume < 0.4) {
+                            currentVolume += 0.03;
+                            legendarySound.volume = currentVolume;
+                        }
+                    }, 40);
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    if (!soundEnabled) return;
+                    
+                    clearInterval(soundInterval);
+                    soundInterval = setInterval(() => {
+                        if (currentVolume > 0) {
+                            currentVolume -= 0.05;
+                            if (currentVolume < 0) currentVolume = 0;
+                            legendarySound.volume = currentVolume;
+                        } else {
+                            clearInterval(soundInterval);
+                            legendarySound.pause();
+                        }
+                    }, 40);
+                });
+            }
+        }
+
+        // Обработка кликов по структурам
+        function handleStructureClick(card, rarity) {
+            if (!structureClickCounts.has(card)) {
+                structureClickCounts.set(card, 0);
+            }
+            
+            let clicks = structureClickCounts.get(card) + 1;
+            structureClickCounts.set(card, clicks);
+            
+            // Звук для структур
+            if (soundEnabled) {
+                structureSound.currentTime = 0;
+                structureSound.play();
+            }
+            
+            // Эффекты в зависимости от количества кликов
+            if (rarity === 'pixelStructure') {
+                const pixels = card.querySelectorAll('.pixel');
+                
+                // Анимация каждого пикселя
+                pixels.forEach((pixel, i) => {
+                    setTimeout(() => {
+                        pixel.style.transform = `scale(1.3) rotate(${clicks * 90}deg)`;
+                        setTimeout(() => {
+                            pixel.style.transform = '';
+                        }, 300);
+                    }, i * 50);
+                });
+                
+                // После 3 кликов - меняем цвет
+                if (clicks >= 3) {
+                    const patternTypes = ['heart', 'diamond', 'star'];
+                    const currentType = card.dataset.patternType;
+                    const nextType = patternTypes[(patternTypes.indexOf(currentType) + 1) % patternTypes.length];
+                    const pattern = pixelPatterns.find(p => p.name === nextType);
+                    
+                    card.classList.remove(`${currentType}-pattern`);
+                    card.classList.add(`${nextType}-pattern`);
+                    card.style.background = pattern.color;
+                    card.dataset.patternType = nextType;
+                    
+                    // Обновляем пиксели
+                    const pixels = card.querySelectorAll('.pixel');
+                    pixels.forEach((pixel, i) => {
+                        pixel.textContent = pattern.pattern[i] === ' ' ? ' ' : pattern.pattern[i];
+                    });
+                    
+                    // Сбрасываем счётчик
+                    structureClickCounts.set(card, 0);
+                }
+                
+            } else if (rarity === 'building') {
+                const blocks = card.querySelectorAll('.block');
+                
+                // Анимация блоков
+                blocks.forEach((block, i) => {
+                    setTimeout(() => {
+                        block.style.transform = `translateY(-5px)`;
+                        setTimeout(() => {
+                            block.style.transform = '';
+                        }, 200);
+                    }, i * 20);
+                });
+                
+                // После 3 кликов - улучшаем строение
+                if (clicks >= 3) {
+                    card.classList.add('upgraded');
+                    card.style.boxShadow = `
+                        20px 20px 0px rgba(0,0,0,0.3),
+                        inset 0 0 40px rgba(255, 255, 255, 0.5),
+                        0 0 60px gold`;
+                    
+                    // Добавляем эффект золотых окон
+                    blocks.forEach(block => {
+                        if (block.textContent === '🪟' || block.textContent === '  ') {
+                            block.style.color = '#ffd700';
+                            block.style.textShadow = '0 0 5px gold';
+                        }
+                    });
+                    
+                    // Сбрасываем счётчик
+                    structureClickCounts.set(card, 0);
+                    
+                    // Через 5 секунд возвращаем в исходное
+                    setTimeout(() => {
+                        card.classList.remove('upgraded');
+                        card.style.boxShadow = '';
+                        blocks.forEach(block => {
+                            block.style.color = '';
+                            block.style.textShadow = '';
+                        });
+                    }, 5000);
+                }
+            }
+            
+            // Эффект нажатия
+            card.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                card.style.transform = '';
+            }, 150);
+        }
+
+        // Предварительная генерация
+        function pregenerateShrimps() {
+            loadingIndicator.style.display = 'block';
+            
+            // Генерируем достаточно для 2 экранов
+            const cardsPerScreen = Math.ceil(window.innerHeight / 225) * 3;
+            const neededCards = cardsPerScreen * 2;
+            
+            let generated = 0;
+            const generateInterval = setInterval(() => {
+                generated += generateShrimpBatch(20);
+                
+                if (generated >= neededCards) {
+                    clearInterval(generateInterval);
+                    loadingIndicator.style.display = 'none';
+                    startInfiniteScroll();
+                }
+            }, 100);
+        }
+
+        // ВОЗВРАЩАЕМ БЕСКОНЕЧНЫЙ СКРОЛЛ
+        function startInfiniteScroll() {
+            if (!infiniteScroll) return;
+            
+            let loading = false;
+            let lastScrollTime = 0;
+            
+            window.addEventListener('scroll', () => {
+                const now = Date.now();
+                if (now - lastScrollTime < 100) return; // Троттлинг
+                lastScrollTime = now;
+                
+                const scrollPosition = window.innerHeight + window.pageYOffset;
+                const pageHeight = document.documentElement.scrollHeight;
+                const distanceToBottom = pageHeight - scrollPosition;
+                
+                // Подгружаем новые креветки когда до низа 500px
+                if (distanceToBottom < 500 && !loading) {
+                    loading = true;
+                    
+                    // Показываем индикатор на быструю генерацию
+                    setTimeout(() => {
+                        generateShrimpBatch(25);
+                        loading = false;
+                    }, 300);
+                }
+                
+                // Также подгружаем если мы в самом верху (обратный скролл)
+                if (window.pageYOffset < 100 && !loading) {
+                    loading = true;
+                    setTimeout(() => {
+                        // Добавляем сверху
+                        const fragment = document.createDocumentFragment();
+                        for (let i = 0; i < 15; i++) {
+                            const rarity = getRandomRarity();
+                            const card = createShrimpCard(rarity);
+                            if (card) {
+                                fragment.appendChild(card);
+                                addShrimpInteractivity(card, rarity);
+                                totalShrimpsGenerated++;
+                            }
+                        }
+                        grid.prepend(fragment);
+                        loading = false;
+                    }, 300);
+                }
+            });
+        }
+
+        // Управление звуком
+        musicBtn.addEventListener('click', () => {
+            musicEnabled = !musicEnabled;
+            musicBtn.textContent = musicEnabled ? '🎵' : '🔇';
+            
+            if (musicEnabled) {
+                backgroundMusic.play().catch(e => {
+                    musicEnabled = false;
+                    musicBtn.textContent = '🔇';
+                });
+            } else {
+                backgroundMusic.pause();
+            }
+        });
+
+        soundBtn.addEventListener('click', () => {
+            soundEnabled = !soundEnabled;
+            soundBtn.textContent = soundEnabled ? '🔊' : '🔇';
+        });
+
+        // Управление скроллом
+        scrollBtn.addEventListener('click', () => {
+            infiniteScroll = !infiniteScroll;
+            scrollBtn.textContent = infiniteScroll ? '🔄' : '⏸️';
+            scrollBtn.style.background = infiniteScroll ? '#ff69b4' : '#666';
+            
+            if (infiniteScroll) {
+                startInfiniteScroll();
+            }
+        });
+
+        // Инициализация
+        window.addEventListener('DOMContentLoaded', () => {
+            initializeAudio();
+            pregenerateShrimps();
+            
+            console.log('🎮 Управление:');
+            console.log('• Клик по креветке - базовый звук');
+            console.log('• Наведение на легендарную - эпичный звук');
+            console.log('• Клик по структуре 3 раза - секретный эффект');
+            console.log('• Ctrl+L - создать легендарную');
+            console.log('• Ctrl+S - создать структуру');
+        });
+
+        // Горячие клавиши
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey) {
+                if (e.code === 'KeyL') {
+                    // Создать легендарную креветку
+                    const card = createShrimpCard('legendary');
+                    grid.prepend(card);
+                    addShrimpInteractivity(card, 'legendary');
+                    totalShrimpsGenerated++;
+                }
+                
+                if (e.code === 'KeyS') {
+                    // Создать случайную структуру
+                    const rarity = Math.random() > 0.5 ? 'pixelStructure' : 'building';
+                    const card = createShrimpCard(rarity);
+                    grid.prepend(card);
+                    addShrimpInteractivity(card, rarity);
+                    totalShrimpsGenerated++;
+                }
+            }
+            
+            // Пробел для генерации креветок
+            if (e.code === 'Space' && !e.ctrlKey) {
+                e.preventDefault();
+                generateShrimpBatch(15);
+                if (soundEnabled) {
+                    shrimpSound.currentTime = 0;
+                    shrimpSound.play();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
